@@ -6,7 +6,7 @@ triggers = {
         "replace": lambda match: ", ",
     },
     "bold markdown": {
-        "find": re.compile(r"(?:\*\*[^*\n]+\*\*|__[^_\n]+__)") ,
+        "find": re.compile(r"(?:\*\*[^*\n]+\*\*|__[^_\n]+__)"),
         "replace": lambda match: match.group(0).replace("**", "").replace("__", ""),
     },
     "emoji": {

@@ -10,7 +10,9 @@ def _parse_args(args: Sequence[str] | None = None) -> argparse.Namespace:
         prog="sloplint",
         description="A linter to detect AI-generated markdown prose",
     )
-    parser.add_argument("--fix", action="store_true", help="Fix detectable issues in place")
+    parser.add_argument(
+        "--fix", action="store_true", help="Fix detectable issues in place"
+    )
     parser.add_argument("paths", nargs="+", help="Markdown file paths to lint")
     return parser.parse_args(args)
 
