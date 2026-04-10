@@ -1,14 +1,13 @@
 import re
-from typing import Iterable
 
 triggers = {
     "em-dash": {
-        "find": re.compile(r" — "),
-        "replace": lambda m: m.replace(" — ", ", "),
+        "find": re.compile(r" \u2014 "),
+        "replace": lambda match: ", ",
     },
     "bold markdown": {
-        "find": re.compile(r"(?:\*\*[^*\n]+\*\*|__[^_\n]+__)"),
-        "replace": lambda m: m.replace("**", ""),
+        "find": re.compile(r"(?:\*\*[^*\n]+\*\*|__[^_\n]+__)") ,
+        "replace": lambda match: match.group(0).replace("**", "").replace("__", ""),
     },
     "emoji": {
         "find": re.compile(
@@ -26,9 +25,16 @@ triggers = {
             r"\u2700-\u27BF"
             r"]"
         ),
-        "replace": lambda m: "",
+        "replace": lambda match: "",
     },
 }
+
+
+def fix_markdown_content(content: str) -> str:
+    """Return content with detectable markdown issues fixed."""
+    for trigger in triggers.values():
+        content = trigger["find"].sub(trigger["replace"], content)
+    return content
 
 
 def find_markdown_issues(content: str) -> list[str]:
