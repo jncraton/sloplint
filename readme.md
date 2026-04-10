@@ -29,6 +29,10 @@ If you want to modify files in place to address issues, use the `--fix` flag.
 sloplint --fix myfile.md
 ```
 
+## Why?
+
+The intent behind this package is not to "humanize" AI generations so that they can be accepted as human output. The intent of this tool is to flag AI-isms in human writing to avoid having folks think that you might be an AI. This may be especially helpful for humans who have been trained on a large corpus of Wikipedia and other open web texts.
+
 ## Resources
 
 - [WP:AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
