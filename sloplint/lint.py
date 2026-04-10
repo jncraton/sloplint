@@ -28,14 +28,46 @@ triggers = {
 
 
 def fix_markdown_content(content: str) -> str:
-    """Return content with detectable markdown issues fixed."""
+    """Return content with detectable markdown issues fixed.
+
+    >>> fix_markdown_content('This **bold** text\\n')
+    'This bold text\\n'
+
+    >>> fix_markdown_content('Pause — here\\n')
+    'Pause, here\\n'
+
+    >>> fix_markdown_content('Smile 😊\\n')
+    'Smile \\n'
+
+    >>> fix_markdown_content('Additionally, note this.\\n')
+    'note this.\\n'
+
+    >>> fix_markdown_content('It is meticulous work.\\n')
+    'It is work.\\n'
+    """
     for trigger in triggers.values():
         content = re.sub(trigger[0], trigger[1], content)
     return content
 
 
 def find_markdown_issues(content: str) -> list[str]:
-    """Return a list of markdown issues detected in the content."""
+    """Return a list of markdown issues detected in the content.
+
+    >>> find_markdown_issues('This **bold** text\\n')
+    ['1: style:bold']
+
+    >>> find_markdown_issues('Pause — here\\n')
+    ['1: char:em-dash']
+
+    >>> find_markdown_issues('Smile 😊\\n')
+    ['1: char:emoji']
+
+    >>> find_markdown_issues('Additionally, note this.\\n')
+    ['1: word:additionally']
+
+    >>> find_markdown_issues('It is meticulous work.\\n')
+    ['1: word:meticulous']
+    """
     issues: list[str] = []
 
     for line_number, line in enumerate(content.splitlines(), start=1):
@@ -44,3 +76,4 @@ def find_markdown_issues(content: str) -> list[str]:
                 issues.append(f"{line_number}: {name}")
 
     return issues
+

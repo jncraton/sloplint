@@ -18,6 +18,9 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = []
 
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
+
 [project.scripts]
 sloplint = "sloplint.cli:main"
 
