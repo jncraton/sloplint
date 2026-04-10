@@ -10,4 +10,4 @@ test:
 	uv run --with pytest==7.4.0 python -m pytest
 
 clean:
-	rm -rf .pytest_cache **/__pycache__ build dist *.egg-info
+	rm -rf .venv uv.lock .pytest_cache **/__pycache__ build dist *.egg-info
