@@ -1,15 +1,15 @@
 import re
 
 triggers = {
-    "em-dash": {
+    "char:em-dash": {
         "find": re.compile(r" \u2014 "),
         "replace": lambda match: ", ",
     },
-    "bold markdown": {
+    "style:bold": {
         "find": re.compile(r"(?:\*\*[^*\n]+\*\*)"),
         "replace": lambda match: match.group(0).replace("**", "").replace("__", ""),
     },
-    "emoji": {
+    "char:emoji": {
         "find": re.compile(
             r"["
             r"\U0001F300-\U0001F5FF"
@@ -27,11 +27,11 @@ triggers = {
         ),
         "replace": lambda match: "",
     },
-    "additionally": {
+    "word:additionally": {
         "find": re.compile(r"Additionally, "),
         "replace": lambda match: "",
     },
-    "meticulous wording": {
+    "word:meticulous": {
         "find": re.compile(r"\bmeticulous(?:ly)? "),
         "replace": lambda match: "",
     },
@@ -52,6 +52,6 @@ def find_markdown_issues(content: str) -> list[str]:
     for line_number, line in enumerate(content.splitlines(), start=1):
         for name, trigger in triggers.items():
             if trigger["find"].search(line):
-                issues.append(f"{line_number}: {name} detected")
+                issues.append(f"{line_number}: {name}")
 
     return issues

@@ -12,11 +12,11 @@ def test_find_markdown_issues():
     )
     issues = find_markdown_issues(content)
 
-    assert "1: em-dash detected" in issues
-    assert "2: bold markdown detected" in issues
-    assert "3: emoji detected" in issues
-    assert "4: additionally detected" in issues
-    assert "5: meticulous wording detected" in issues
+    assert "1: char:em-dash" in issues
+    assert "2: style:bold" in issues
+    assert "3: char:emoji" in issues
+    assert "4: word:additionally" in issues
+    assert "5: word:meticulous" in issues
 
 
 def test_fix_markdown_content():
@@ -46,7 +46,7 @@ def test_main_returns_non_zero_for_issues(tmp_path, capsys):
     captured = capsys.readouterr()
 
     assert exit_code == 1
-    assert f"{path}:1: bold markdown detected" in captured.out
+    assert f"{path}:1: style:bold" in captured.out
 
 
 def test_main_fix_rewrites_file(tmp_path, capsys):
