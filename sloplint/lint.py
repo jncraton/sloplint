@@ -76,4 +76,3 @@ def find_markdown_issues(content: str) -> list[str]:
                 issues.append(f"{line_number}: {name}")
 
     return issues
-
