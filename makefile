@@ -1,7 +1,7 @@
 all: test
 
 lint:
-	uv run --with black==24.1.0 python -m black sloplint tests
+	uv run --with black==24.1.0 python -m black --check sloplint tests
 
 format:
 	uv run --with black==24.1.0 python -m black sloplint tests
