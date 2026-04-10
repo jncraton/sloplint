@@ -3,7 +3,7 @@ import re
 triggers = {
     "style:bold": {
         "find": re.compile(r"(?:\*\*[^*\n]+\*\*)"),
-        "replace": lambda match: match.group(0).replace("**", "").replace("__", ""),
+        "replace": lambda match: match.group(0).replace("**", ""),
     },
     "char:em-dash": {
         "find": re.compile(r" \u2014 "),
