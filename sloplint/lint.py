@@ -1,47 +1,36 @@
 import re
 
 triggers = {
-    "style:bold": {
-        "find": re.compile(r"(?:\*\*[^*\n]+\*\*)"),
-        "replace": lambda match: match.group(0).replace("**", ""),
-    },
-    "char:em-dash": {
-        "find": re.compile(r" \u2014 "),
-        "replace": lambda match: ", ",
-    },
-    "char:emoji": {
-        "find": re.compile(
-            r"["
-            r"\U0001F300-\U0001F5FF"
-            r"\U0001F600-\U0001F64F"
-            r"\U0001F680-\U0001F6FF"
-            r"\U0001F700-\U0001F77F"
-            r"\U0001F780-\U0001F7FF"
-            r"\U0001F800-\U0001F8FF"
-            r"\U0001F900-\U0001F9FF"
-            r"\U0001FA00-\U0001FA6F"
-            r"\U0001FA70-\U0001FAFF"
-            r"\u2600-\u26FF"
-            r"\u2700-\u27BF"
-            r"]"
-        ),
-        "replace": lambda match: "",
-    },
-    "word:additionally": {
-        "find": re.compile(r"Additionally, "),
-        "replace": lambda match: "",
-    },
-    "word:meticulous": {
-        "find": re.compile(r"\bmeticulous(?:ly)? "),
-        "replace": lambda match: "",
-    },
+    "style:bold": (r"\*\*([^*\n]+)\*\*", r"\1"),
+    "char:em-dash": (r" \u2014 ", r", "),
+    "char:emoji": (
+        r"["
+        r"\U0001F300-\U0001F5FF"
+        r"\U0001F600-\U0001F64F"
+        r"\U0001F680-\U0001F6FF"
+        r"\U0001F700-\U0001F77F"
+        r"\U0001F780-\U0001F7FF"
+        r"\U0001F800-\U0001F8FF"
+        r"\U0001F900-\U0001F9FF"
+        r"\U0001FA00-\U0001FA6F"
+        r"\U0001FA70-\U0001FAFF"
+        r"\u2600-\u26FF"
+        r"\u2700-\u27BF"
+        r"]",
+        "",
+    ),
+    "word:additionally": (
+        r"Additionally, ",
+        r"",
+    ),
+    "word:meticulous": (r"\bmeticulous(?:ly)? ", r""),
 }
 
 
 def fix_markdown_content(content: str) -> str:
     """Return content with detectable markdown issues fixed."""
     for trigger in triggers.values():
-        content = trigger["find"].sub(trigger["replace"], content)
+        content = re.sub(trigger[0], trigger[1], content)
     return content
 
 
@@ -51,7 +40,7 @@ def find_markdown_issues(content: str) -> list[str]:
 
     for line_number, line in enumerate(content.splitlines(), start=1):
         for name, trigger in triggers.items():
-            if trigger["find"].search(line):
+            if re.search(trigger[0], line):
                 issues.append(f"{line_number}: {name}")
 
     return issues
