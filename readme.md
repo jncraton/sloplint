@@ -28,12 +28,6 @@ sloplint --fix myfile.md
 
 If AI-generated text issues are identified, sloplint will exit with a failure code reporting each issue it discovered just like a linter would.
 
-## Triggers
-
-- em-dash
-- emojis
-- bold text
-
 ## Resources
 
 - [WP:AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
