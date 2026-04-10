@@ -1,23 +1,34 @@
 import re
 from typing import Iterable
 
-EM_DASH_RE = re.compile(r"—")
-BOLD_RE = re.compile(r"(?:\*\*[^*\n]+\*\*|__[^_\n]+__)")
-EMOJI_RE = re.compile(
-    r"["
-    r"\U0001F300-\U0001F5FF"
-    r"\U0001F600-\U0001F64F"
-    r"\U0001F680-\U0001F6FF"
-    r"\U0001F700-\U0001F77F"
-    r"\U0001F780-\U0001F7FF"
-    r"\U0001F800-\U0001F8FF"
-    r"\U0001F900-\U0001F9FF"
-    r"\U0001FA00-\U0001FA6F"
-    r"\U0001FA70-\U0001FAFF"
-    r"\u2600-\u26FF"
-    r"\u2700-\u27BF"
-    r"]"
-)
+triggers = {
+    "em-dash": {
+        "find": re.compile(r" — "),
+        "replace": lambda m: m.replace(" — ", ", "),
+    },
+    "bold markdown": {
+        "find": re.compile(r"(?:\*\*[^*\n]+\*\*|__[^_\n]+__)"),
+        "replace": lambda m: m.replace("**", ""),
+    },
+    "emoji": {
+        "find": re.compile(
+            r"["
+            r"\U0001F300-\U0001F5FF"
+            r"\U0001F600-\U0001F64F"
+            r"\U0001F680-\U0001F6FF"
+            r"\U0001F700-\U0001F77F"
+            r"\U0001F780-\U0001F7FF"
+            r"\U0001F800-\U0001F8FF"
+            r"\U0001F900-\U0001F9FF"
+            r"\U0001FA00-\U0001FA6F"
+            r"\U0001FA70-\U0001FAFF"
+            r"\u2600-\u26FF"
+            r"\u2700-\u27BF"
+            r"]"
+        ),
+        "replace": lambda m: "",
+    },
+}
 
 
 def find_markdown_issues(content: str) -> list[str]:
@@ -25,11 +36,8 @@ def find_markdown_issues(content: str) -> list[str]:
     issues: list[str] = []
 
     for line_number, line in enumerate(content.splitlines(), start=1):
-        if EM_DASH_RE.search(line):
-            issues.append(f"{line_number}: em-dash detected")
-        if EMOJI_RE.search(line):
-            issues.append(f"{line_number}: emoji detected")
-        if BOLD_RE.search(line):
-            issues.append(f"{line_number}: bold markdown detected")
+        for name, trigger in triggers.items():
+            if trigger["find"].search(line):
+                issues.append(f"{line_number}: {name} detected")
 
     return issues
