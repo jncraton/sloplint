@@ -27,6 +27,14 @@ triggers = {
         ),
         "replace": lambda match: "",
     },
+    "additionally": {
+        "find": re.compile(r"Additionally, "),
+        "replace": lambda match: "",
+    },
+    "meticulous wording": {
+        "find": re.compile(r"\bmeticulous(?:ly)? "),
+        "replace": lambda match: "",
+    },
 }
 
 

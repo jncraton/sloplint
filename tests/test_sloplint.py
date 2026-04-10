@@ -3,19 +3,39 @@ from sloplint.lint import fix_markdown_content, find_markdown_issues
 
 
 def test_find_markdown_issues():
-    content = "First line — with em dash\nSecond line **bold**\nThird line 😊\n"
+    content = (
+        "First line — with em dash\n"
+        "Second line **bold**\n"
+        "Third line 😊\n"
+        "Additionally, this is true.\n"
+        "It is meticulous work.\n"
+    )
     issues = find_markdown_issues(content)
 
     assert "1: em-dash detected" in issues
     assert "2: bold markdown detected" in issues
     assert "3: emoji detected" in issues
+    assert "4: additionally detected" in issues
+    assert "5: meticulous wording detected" in issues
 
 
 def test_fix_markdown_content():
-    content = "First line — with em dash\nSecond line **bold**\nThird line 😊\n"
+    content = (
+        "First line — with em dash\n"
+        "Second line **bold**\n"
+        "Third line 😊\n"
+        "Additionally, this is true.\n"
+        "It is meticulous work.\n"
+    )
     fixed = fix_markdown_content(content)
 
-    assert fixed == "First line, with em dash\nSecond line bold\nThird line \n"
+    assert fixed == (
+        "First line, with em dash\n"
+        "Second line bold\n"
+        "Third line \n"
+        "this is true.\n"
+        "It is work.\n"
+    )
 
 
 def test_main_returns_non_zero_for_issues(tmp_path, capsys):
