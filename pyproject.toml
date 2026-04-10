@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sloplint"
-version = "0.1.0"
+version = "0.2.0"
 description = "A linter to detect AI-generated markdown prose"
 readme = "readme.md"
 authors = [
