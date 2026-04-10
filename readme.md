@@ -20,10 +20,10 @@ pip install sloplint
 sloplint myfile.md
 ```
 
-Or run without installation as:
+If you want to modify files in place to address issues, use the `--fix` flag.
 
 ```sh
-uxv sloplint readme.md
+sloplint --fix myfile.md
 ```
 
 If AI-generated text issues are identified, sloplint will exit with a failure code reporting each issue it discovered just like a linter would.
