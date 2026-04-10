@@ -1,13 +1,13 @@
 import re
 
 triggers = {
-    "char:em-dash": {
-        "find": re.compile(r" \u2014 "),
-        "replace": lambda match: ", ",
-    },
     "style:bold": {
         "find": re.compile(r"(?:\*\*[^*\n]+\*\*)"),
         "replace": lambda match: match.group(0).replace("**", "").replace("__", ""),
+    },
+    "char:em-dash": {
+        "find": re.compile(r" \u2014 "),
+        "replace": lambda match: ", ",
     },
     "char:emoji": {
         "find": re.compile(
