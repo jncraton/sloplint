@@ -41,6 +41,11 @@ triggers = {
     "boasts": "has",
     "features": "has",
     "offers": "has",
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Not_just_X,_but_also_Y
+    "not just": None,
+    "isn't just": None,
+    "not only": None,
+    "isn't only": None,
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
@@ -114,6 +119,9 @@ def fix(content: str) -> str:
     >>> fix('It is meticulous work.')
     'It is meticulous work.'
 
+    >>> fix("It isn't only good, but great")
+    "It isn't only good, but great"
+
     >>> fix('“Hello, world”')
     '"Hello, world"'
 
@@ -161,6 +169,12 @@ def lint(content: str) -> list[str]:
 
     >>> lint('It is meticulous work.')
     ['1: meticulous']
+
+    >>> lint("It isn't only good, but great")
+    ["1: isn't only"]
+
+    >>> lint("It isn’t only good, but great")
+    ["1: isn't only"]
 
     >>> lint('“Hello, world”')
     ['1: “', '1: ”']
