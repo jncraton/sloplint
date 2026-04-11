@@ -4,6 +4,7 @@ triggers = {
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#High_density_of_%22AI_vocabulary%22_words
     "Additionally,": "",
     "aligns? with": None,
+    "boasts": "has",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
@@ -71,6 +72,9 @@ def fix(content: str) -> str:
 
     >>> fix('This aligns with that')
     'This aligns with that'
+
+    >>> fix('The city boasts two hotels')
+    'The city has two hotels'
 
     >>> fix('It is meticulous work.')
     'It is work.'
