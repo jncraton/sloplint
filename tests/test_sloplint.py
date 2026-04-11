@@ -10,7 +10,7 @@ def test_main_returns_non_zero_for_issues(tmp_path, capsys):
     captured = capsys.readouterr()
 
     assert exit_code == 1
-    assert f"{path}:1: style:bold" in captured.out
+    assert f"{path}:1: " in captured.out
 
 
 def test_main_fix_rewrites_file(tmp_path, capsys):

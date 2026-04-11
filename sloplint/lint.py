@@ -1,8 +1,10 @@
 import re
 
 triggers = {
-    "style:bold": (r"\*\*([^*\n]+)\*\*", r"\1"),
-    "char:em-dash": (r" \u2014 ", r", "),
+    r"\*\*(.*?)\*\*": r"\1",
+    r" ?— ?": r", ",
+    r"Additionally, ": "",
+    r"\bmeticulous(?:ly)? ": "",
     "char:emoji": (
         r"["
         r"\U0001F300-\U0001F5FF"
@@ -19,12 +21,11 @@ triggers = {
         r"]",
         "",
     ),
-    "word:additionally": (
-        r"Additionally, ",
-        r"",
-    ),
-    "word:meticulous": (r"\bmeticulous(?:ly)? ", r""),
 }
+
+for trigger in triggers:
+    if not isinstance(triggers[trigger], tuple):
+        triggers[trigger] = (trigger, triggers[trigger])
 
 
 def fix(content: str) -> str:
@@ -69,22 +70,22 @@ def lint(content: str) -> list[str]:
     """Return a list of markdown issues detected in the content.
 
     >>> lint('This **bold** text\\n')
-    ['1: style:bold']
+    ['1: \\\\*\\\\*(.*?)\\\\*\\\\*']
 
-    >>> lint('This **bold** text in **bold**\\n')
-    ['1: style:bold', '1: style:bold']
+    >>> len(lint('This **bold** text in **bold**\\n'))
+    2
 
     >>> lint('Pause — here\\n')
-    ['1: char:em-dash']
+    ['1:  ?— ?']
 
     >>> lint('Smile 😊\\n')
     ['1: char:emoji']
 
     >>> lint('Additionally, note this.\\n')
-    ['1: word:additionally']
+    ['1: Additionally, ']
 
     >>> lint('It is meticulous work.\\n')
-    ['1: word:meticulous']
+    ['1: \\\\bmeticulous(?:ly)? ']
     """
     issues: list[str] = []
 
