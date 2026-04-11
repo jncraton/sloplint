@@ -13,13 +13,22 @@ def test_main_returns_non_zero_for_issues(tmp_path, capsys):
     assert f"{path}:1: " in captured.out
 
 
-def test_issue_count(tmp_path, capsys):
+def test_issue_count_chatgpt(tmp_path, capsys):
     exit_code = main(["samples/chatgpt-20260411-black-holes.md"])
     captured = capsys.readouterr()
 
     assert exit_code == 1
     assert f"samples/chatgpt-20260411-black-holes.md:1: " in captured.out
     assert len(captured.out.splitlines()) == 25
+
+
+def test_issue_count_claude(tmp_path, capsys):
+    exit_code = main(["samples/claude-sonnet-4.6-20260411-black-holes.md"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 1
+    assert f"samples/claude-sonnet-4.6-20260411-black-holes.md:1: " in captured.out
+    assert len(captured.out.splitlines()) == 23
 
 
 def test_main_fix_rewrites_file(tmp_path, capsys):
