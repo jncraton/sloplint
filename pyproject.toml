@@ -19,7 +19,7 @@ requires-python = ">=3.10"
 dependencies = []
 
 [tool.pytest.ini_options]
-addopts = "--doctest-modules"
+addopts = "--doctest-modules -v"
 
 [project.scripts]
 sloplint = "sloplint.cli:main"
