@@ -75,7 +75,7 @@ for trigger in triggers:
         rule = rule.replace("\\.\\.\\.", "(.*?)")
         if rule[0].isalnum():
             rule = r"\b" + rule
-        if rule[1].isalnum():
+        if not replacement:
             rule = rule + r" ?"
 
         triggers[trigger] = (rule, replacement)
