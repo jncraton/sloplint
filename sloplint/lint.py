@@ -1,6 +1,8 @@
 import re
 
 triggers = {
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#High_density_of_%22AI_vocabulary%22_words
+    "Additionally,": "",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
@@ -25,49 +27,11 @@ triggers = {
         "",
     ),
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Curly_quotation_marks_and_apostrophes
-    "“": "\"",
-    "”": "\"",
+    "“": '"',
+    "”": '"',
     "‘": "'",
     "’": "'",
 }
-
-initial_transitions = [
-    "Additionally",
-    "Furthermore",
-    "Moreover",
-    "In addition",
-    "Notably",
-    "Importantly",
-    "Equally important",
-    "Nevertheless",
-    "Nonetheless",
-    "In contrast",
-    "Consequently",
-    "Accordingly",
-    "Subsequently",
-    "Hence",
-    "Thus",
-    "In summary",
-    "Overall",
-    "Ultimately",
-    "In conclusion",
-    "To conclude",
-    "Essentially",
-    "In essence",
-    "Specifically",
-    "In particular",
-    "Indeed",
-    "In fact",
-    "Significantly",
-    "It is important to note",
-    "No discussion would be complete without",
-    "Furthermore",
-    "Moreover",
-    "In summary",
-]
-
-for transition in initial_transitions:
-    triggers[transition + ","] = ""
 
 for trigger in triggers:
     if not isinstance(triggers[trigger], tuple):
