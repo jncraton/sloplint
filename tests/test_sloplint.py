@@ -31,6 +31,15 @@ def test_issue_count_claude(tmp_path, capsys):
     assert len(captured.out.splitlines()) == 23
 
 
+def test_issue_count_gemini(tmp_path, capsys):
+    exit_code = main(["samples/gemini-20260411-black-holes.md"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 1
+    assert f"samples/gemini-20260411-black-holes.md:1: " in captured.out
+    assert len(captured.out.splitlines()) == 25
+
+
 def test_main_fix_rewrites_file(tmp_path, capsys):
     path = tmp_path / "sample.md"
     path.write_text("This — is **bold** 😊\n", encoding="utf-8")
