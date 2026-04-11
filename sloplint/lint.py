@@ -4,7 +4,8 @@ triggers = {
     "**...**": r"\1",
     r" ?— ?": r", ",
     "Additionally,": "",
-    r"\bmeticulous(?:ly)? ": "",
+    "meticulous": "",
+    "meticulously": "",
     "char:emoji": (
         r"["
         r"\U0001F300-\U0001F5FF"
@@ -97,7 +98,7 @@ def lint(content: str) -> list[str]:
     ['1: Additionally,']
 
     >>> lint('It is meticulous work.\\n')
-    ['1: \\\\bmeticulous(?:ly)? ']
+    ['1: meticulous']
     """
     issues: list[str] = []
 
