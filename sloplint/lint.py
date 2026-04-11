@@ -181,6 +181,9 @@ def lint(content: str) -> list[str]:
 
     >>> lint('‘Hello, world’')
     ['1: ‘', '1: ’']
+
+    >>> lint('🌀')
+    ['1: char:emoji']
     """
     issues: list[str] = []
 
