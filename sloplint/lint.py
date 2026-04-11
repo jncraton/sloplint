@@ -27,25 +27,25 @@ triggers = {
 }
 
 
-def fix_markdown_content(content: str) -> str:
+def fix(content: str) -> str:
     """Return content with detectable markdown issues fixed.
 
-    >>> fix_markdown_content('This **bold** text\\n')
+    >>> fix('This **bold** text\\n')
     'This bold text\\n'
 
-    >>> fix_markdown_content('This **bold** text in **bold**\\n')
+    >>> fix('This **bold** text in **bold**\\n')
     'This bold text in bold\\n'
 
-    >>> fix_markdown_content('Pause — here\\n')
+    >>> fix('Pause — here\\n')
     'Pause, here\\n'
 
-    >>> fix_markdown_content('Smile 😊\\n')
+    >>> fix('Smile 😊\\n')
     'Smile \\n'
 
-    >>> fix_markdown_content('Additionally, note this.\\n')
+    >>> fix('Additionally, note this.\\n')
     'note this.\\n'
 
-    >>> fix_markdown_content('It is meticulous work.\\n')
+    >>> fix('It is meticulous work.\\n')
     'It is work.\\n'
     """
     for trigger in triggers.values():
@@ -53,25 +53,25 @@ def fix_markdown_content(content: str) -> str:
     return content
 
 
-def find_markdown_issues(content: str) -> list[str]:
+def lint(content: str) -> list[str]:
     """Return a list of markdown issues detected in the content.
 
-    >>> find_markdown_issues('This **bold** text\\n')
+    >>> lint('This **bold** text\\n')
     ['1: style:bold']
 
-    >>> find_markdown_issues('This **bold** text in **bold**\\n')
+    >>> lint('This **bold** text in **bold**\\n')
     ['1: style:bold', '1: style:bold']
 
-    >>> find_markdown_issues('Pause — here\\n')
+    >>> lint('Pause — here\\n')
     ['1: char:em-dash']
 
-    >>> find_markdown_issues('Smile 😊\\n')
+    >>> lint('Smile 😊\\n')
     ['1: char:emoji']
 
-    >>> find_markdown_issues('Additionally, note this.\\n')
+    >>> lint('Additionally, note this.\\n')
     ['1: word:additionally']
 
-    >>> find_markdown_issues('It is meticulous work.\\n')
+    >>> lint('It is meticulous work.\\n')
     ['1: word:meticulous']
     """
     issues: list[str] = []

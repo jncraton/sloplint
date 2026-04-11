@@ -1,8 +1,8 @@
 from sloplint.cli import main
-from sloplint.lint import fix_markdown_content, find_markdown_issues
+from sloplint.lint import fix, lint
 
 
-def test_find_markdown_issues():
+def test_lint():
     content = (
         "First line — with em dash\n"
         "Second line **bold**\n"
@@ -10,7 +10,7 @@ def test_find_markdown_issues():
         "Additionally, this is true.\n"
         "It is meticulous work.\n"
     )
-    issues = find_markdown_issues(content)
+    issues = lint(content)
 
     assert "1: char:em-dash" in issues
     assert "2: style:bold" in issues
@@ -19,7 +19,7 @@ def test_find_markdown_issues():
     assert "5: word:meticulous" in issues
 
 
-def test_fix_markdown_content():
+def test_fix():
     content = (
         "First line — with em dash\n"
         "Second line **bold**\n"
@@ -27,7 +27,7 @@ def test_fix_markdown_content():
         "Additionally, this is true.\n"
         "It is meticulous work.\n"
     )
-    fixed = fix_markdown_content(content)
+    fixed = fix(content)
 
     assert fixed == (
         "First line, with em dash\n"

@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 from typing import Sequence
 
-from .lint import find_markdown_issues, fix_markdown_content
+from .lint import lint, fix
 
 
 def _parse_args(args: Sequence[str] | None = None) -> argparse.Namespace:
@@ -32,11 +32,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         content = path.read_text(encoding="utf-8")
         if args.fix:
-            fixed_content = fix_markdown_content(content)
+            fixed_content = fix(content)
             if fixed_content != content:
                 path.write_text(fixed_content, encoding="utf-8")
             content = fixed_content
-        issues = find_markdown_issues(content)
+        issues = lint(content)
         for issue in issues:
             messages.append(f"{path}:{issue}")
 
