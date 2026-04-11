@@ -32,7 +32,11 @@ for trigger in triggers:
     if not "\\" in rule and not "?" in rule:
         rule = re.escape(rule)
         rule = rule.replace("\\.\\.\\.", "(.*?)")
-        triggers[trigger] = (r"\b" + rule + " ?", replacement)
+        if rule[0].isalnum():
+            rule = r"\b" + rule
+        rule = rule + r" ?"
+
+        triggers[trigger] = (rule, replacement)
 
 
 def fix(content: str) -> str:
