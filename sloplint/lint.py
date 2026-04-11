@@ -51,7 +51,7 @@ triggers = {
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
     r" ?— ?": r", ",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Emoji
-    "char:emoji": (
+    "emoji": (
         r"["
         r"\U0001F300-\U0001F5FF"
         r"\U0001F600-\U0001F64F"
@@ -159,7 +159,7 @@ def lint(content: str) -> list[str]:
     ['1:  ?— ?']
 
     >>> lint('Smile 😊')
-    ['1: char:emoji']
+    ['1: emoji']
 
     >>> lint('Additionally, note this.')
     ['1: Additionally,']
@@ -183,7 +183,7 @@ def lint(content: str) -> list[str]:
     ['1: ‘', '1: ’']
 
     >>> lint('🌀')
-    ['1: char:emoji']
+    ['1: emoji']
     """
     issues: list[str] = []
 
