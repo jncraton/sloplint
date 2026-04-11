@@ -3,7 +3,7 @@ import re
 triggers = {
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#High_density_of_%22AI_vocabulary%22_words
     "Additionally,": "",
-    "aligns? with": "",
+    "aligns? with": None,
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
@@ -69,6 +69,9 @@ def fix(content: str) -> str:
     >>> fix('Additionally, note this.\\n')
     'Note this.\\n'
 
+    >>> fix('This aligns with that\\n')
+    'This aligns with that\\n'
+
     >>> fix('It is meticulous work.\\n')
     'It is work.\\n'
 
@@ -80,7 +83,8 @@ def fix(content: str) -> str:
     """
     for pattern, replacement in triggers.values():
         if replacement != "":
-            content = re.sub(pattern, replacement, content)
+            if replacement != None:
+                content = re.sub(pattern, replacement, content)
         else:
             while True:
                 match = re.search(pattern, content)
