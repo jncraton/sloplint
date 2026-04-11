@@ -174,7 +174,7 @@ def lint(content: str) -> list[str]:
     ["1: isn't only"]
 
     >>> lint("It isn’t only good, but great")
-    ["1: isn't only"]
+    ['1: ’']
 
     >>> lint('“Hello, world”')
     ['1: “', '1: ”']
