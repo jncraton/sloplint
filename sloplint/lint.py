@@ -24,6 +24,11 @@ triggers = {
         r"]",
         "",
     ),
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Curly_quotation_marks_and_apostrophes
+    "“": "\"",
+    "”": "\"",
+    "‘": "'",
+    "’": "'",
 }
 
 initial_transitions = [
@@ -101,6 +106,12 @@ def fix(content: str) -> str:
 
     >>> fix('It is meticulous work.\\n')
     'It is work.\\n'
+
+    >>> fix('“Hello, world”')
+    '"Hello, world"'
+
+    >>> fix('‘Hello, world’')
+    "'Hello, world'"
     """
     for pattern, replacement in triggers.values():
         if replacement != "":
@@ -139,6 +150,12 @@ def lint(content: str) -> list[str]:
 
     >>> lint('It is meticulous work.\\n')
     ['1: meticulous']
+
+    >>> lint('“Hello, world”')
+    ['1: “', '1: ”']
+
+    >>> lint('‘Hello, world’')
+    ['1: ‘', '1: ’']
     """
     issues: list[str] = []
 
