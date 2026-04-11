@@ -5,12 +5,32 @@ triggers = {
     "Additionally,": "",
     "aligns? with": None,
     "boasts": "has",
+    "bolstered": None,
+    "crucial": None,
+    "delve": None,
+    "emphasizing": None,
+    "enduring": None,
+    "enhance": None,
+    "fostering": None,
+    "garner": None,
+    "highlight": None,
+    "interplay": None,
+    "intricate": None,
+    "intricacies": None,
+    "landscape": None,
+    "meticulous": None,
+    "meticulously": None,
+    "pivotal": None,
+    "showcase": None,
+    "tapestry": None,
+    "testament": None,
+    "underscore": None,
+    "valuable": None,
+    "vibrant": None,
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
     r" ?— ?": r", ",
-    "meticulous": "",
-    "meticulously": "",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Emoji
     "char:emoji": (
         r"["
@@ -77,7 +97,7 @@ def fix(content: str) -> str:
     'The city has two hotels'
 
     >>> fix('It is meticulous work.')
-    'It is work.'
+    'It is meticulous work.'
 
     >>> fix('“Hello, world”')
     '"Hello, world"'
