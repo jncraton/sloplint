@@ -182,7 +182,7 @@ def lint(content: str) -> list[str]:
     >>> lint('‘Hello, world’')
     ['1: ‘', '1: ’']
 
-    >>> lint('🌀')
+    >>> lint('Emoji:🌀 What creates a black hole?')
     ['1: emoji']
     """
     issues: list[str] = []
