@@ -4,7 +4,6 @@ triggers = {
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#High_density_of_%22AI_vocabulary%22_words
     "Additionally,": "",
     "aligns? with": None,
-    "boasts": "has",
     "bolstered": None,
     "crucial": None,
     "delve": None,
@@ -27,6 +26,15 @@ triggers = {
     "underscore": None,
     "valuable": None,
     "vibrant": None,
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Avoidance_of_basic_copulatives_(%22is%22/%22are%22_phrases)
+    "serves as": "is",
+    "serve as": "are",
+    "stands as": "is",
+    "stand as": "is",
+    "represents": "is",
+    "boasts": "has",
+    "features": "has",
+    "offers": "has",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
@@ -95,6 +103,9 @@ def fix(content: str) -> str:
 
     >>> fix('The city boasts two hotels')
     'The city has two hotels'
+
+    >>> fix('The book represents a key moment and stands as a work')
+    'The book is a key moment and is a work'
 
     >>> fix('It is meticulous work.')
     'It is meticulous work.'
