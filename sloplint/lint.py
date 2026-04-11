@@ -27,8 +27,10 @@ for trigger in triggers:
     if not isinstance(triggers[trigger], tuple):
         triggers[trigger] = (trigger, triggers[trigger])
 
-    if not "\\" in triggers[trigger][0]:
-        triggers[trigger] = (r"\b" + triggers[trigger][0] + " ?", triggers[trigger][1])
+    rule, replacement = triggers[trigger]
+
+    if not "\\" in rule and not "?" in rule:
+        triggers[trigger] = (r"\b" + re.escape(rule) + " ?", replacement)
 
 
 def fix(content: str) -> str:
