@@ -193,5 +193,4 @@ def lint(content: str) -> list[str]:
                 if replacement != None:
                     line = re.sub(pattern, replacement, line)
 
-
     return issues
