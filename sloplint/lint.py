@@ -54,26 +54,26 @@ for trigger in triggers:
 def fix(content: str) -> str:
     """Return content with detectable markdown issues fixed.
 
-    >>> fix('This **bold** text\\n')
-    'This bold text\\n'
+    >>> fix('This **bold** text')
+    'This bold text'
 
-    >>> fix('This **bold** text in **bold**\\n')
-    'This bold text in bold\\n'
+    >>> fix('This **bold** text in **bold**')
+    'This bold text in bold'
 
-    >>> fix('Pause — here\\n')
-    'Pause, here\\n'
+    >>> fix('Pause — here')
+    'Pause, here'
 
-    >>> fix('Smile 😊\\n')
-    'Smile \\n'
+    >>> fix('Smile 😊')
+    'Smile '
 
-    >>> fix('Additionally, note this.\\n')
-    'Note this.\\n'
+    >>> fix('Additionally, note this.')
+    'Note this.'
 
-    >>> fix('This aligns with that\\n')
-    'This aligns with that\\n'
+    >>> fix('This aligns with that')
+    'This aligns with that'
 
-    >>> fix('It is meticulous work.\\n')
-    'It is work.\\n'
+    >>> fix('It is meticulous work.')
+    'It is work.'
 
     >>> fix('“Hello, world”')
     '"Hello, world"'
@@ -102,25 +102,25 @@ def fix(content: str) -> str:
 def lint(content: str) -> list[str]:
     """Return a list of markdown issues detected in the content.
 
-    >>> lint('This **bold** text\\n')
+    >>> lint('This **bold** text')
     ['1: **...**']
 
-    >>> len(lint('This **bold** text in **bold**\\n'))
+    >>> len(lint('This **bold** text in **bold**'))
     2
 
-    >>> lint('Pause — here\\n')
+    >>> lint('Pause — here')
     ['1:  ?— ?']
 
-    >>> lint('Smile 😊\\n')
+    >>> lint('Smile 😊')
     ['1: char:emoji']
 
-    >>> lint('Additionally, note this.\\n')
+    >>> lint('Additionally, note this.')
     ['1: Additionally,']
 
-    >>> lint('This aligns with that\\n')
+    >>> lint('This aligns with that')
     ['1: aligns? with']
 
-    >>> lint('It is meticulous work.\\n')
+    >>> lint('It is meticulous work.')
     ['1: meticulous']
 
     >>> lint('“Hello, world”')
