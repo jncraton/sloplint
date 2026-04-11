@@ -3,7 +3,6 @@ import re
 triggers = {
     "**...**": r"\1",
     r" ?— ?": r", ",
-    "Additionally,": "",
     "meticulous": "",
     "meticulously": "",
     "char:emoji": (
@@ -23,6 +22,13 @@ triggers = {
         "",
     ),
 }
+
+initial_transitions = [
+    "Additionally",
+]
+
+for transition in initial_transitions:
+    triggers[transition + ","] = ""
 
 for trigger in triggers:
     if not isinstance(triggers[trigger], tuple):
