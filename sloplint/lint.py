@@ -30,8 +30,9 @@ triggers = {
     "serves as": "is",
     "serve as": "are",
     "stands as": "is",
-    "stand as": "is",
+    "stand as": "are",
     "represents": "is",
+    "represent": "are",
     "boasts": "has",
     "features": "has",
     "offers": "has",
@@ -106,6 +107,9 @@ def fix(content: str) -> str:
 
     >>> fix('The book represents a key moment and stands as a work')
     'The book is a key moment and is a work'
+
+    >>> fix('The books represent a key moment and stand as the')
+    'The books are a key moment and are the'
 
     >>> fix('It is meticulous work.')
     'It is meticulous work.'
