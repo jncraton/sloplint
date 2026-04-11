@@ -3,6 +3,7 @@ import re
 triggers = {
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#High_density_of_%22AI_vocabulary%22_words
     "Additionally,": "",
+    "aligns? with": "",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
@@ -111,6 +112,9 @@ def lint(content: str) -> list[str]:
 
     >>> lint('Additionally, note this.\\n')
     ['1: Additionally,']
+
+    >>> lint('This aligns with that\\n')
+    ['1: aligns? with']
 
     >>> lint('It is meticulous work.\\n')
     ['1: meticulous']
