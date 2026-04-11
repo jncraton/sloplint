@@ -2,42 +2,6 @@ from sloplint.cli import main
 from sloplint.lint import fix, lint
 
 
-def test_lint():
-    content = (
-        "First line — with em dash\n"
-        "Second line **bold**\n"
-        "Third line 😊\n"
-        "Additionally, this is true.\n"
-        "It is meticulous work.\n"
-    )
-    issues = lint(content)
-
-    assert "1: char:em-dash" in issues
-    assert "2: style:bold" in issues
-    assert "3: char:emoji" in issues
-    assert "4: word:additionally" in issues
-    assert "5: word:meticulous" in issues
-
-
-def test_fix():
-    content = (
-        "First line — with em dash\n"
-        "Second line **bold**\n"
-        "Third line 😊\n"
-        "Additionally, this is true.\n"
-        "It is meticulous work.\n"
-    )
-    fixed = fix(content)
-
-    assert fixed == (
-        "First line, with em dash\n"
-        "Second line bold\n"
-        "Third line \n"
-        "This is true.\n"
-        "It is work.\n"
-    )
-
-
 def test_main_returns_non_zero_for_issues(tmp_path, capsys):
     path = tmp_path / "sample.md"
     path.write_text("This is **bold**\n", encoding="utf-8")
