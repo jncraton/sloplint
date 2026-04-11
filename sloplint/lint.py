@@ -50,6 +50,8 @@ triggers = {
     "**...**": r"\1",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
     r" ?— ?": r", ",
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Inline-header_vertical_lists
+    "header list": (r"^([ \t]*[*+-] |\d+[.)] )(.*?):", r"\1\2"),
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Emoji
     "emoji": (
         r"["
@@ -127,6 +129,9 @@ def fix(content: str) -> str:
 
     >>> fix('‘Hello, world’')
     "'Hello, world'"
+
+    >>> fix('\\n- **Item**: a\\n- **Another**: b')
+    '\\n- Item: a\\n- Another: b'
     """
     for pattern, replacement in triggers.values():
         if replacement != "":
@@ -184,6 +189,9 @@ def lint(content: str) -> list[str]:
 
     >>> lint('Emoji:🌀 What creates a black hole?')
     ['1: emoji']
+
+    >>> lint('\\n- **Item**: a\\n- **Another**: b')
+    ['2: **...**', '2: header list', '3: **...**', '3: header list']
     """
     issues: list[str] = []
 
