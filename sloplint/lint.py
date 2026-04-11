@@ -43,13 +43,25 @@ def fix(content: str) -> str:
     'Smile \\n'
 
     >>> fix('Additionally, note this.\\n')
-    'note this.\\n'
+    'Note this.\\n'
 
     >>> fix('It is meticulous work.\\n')
     'It is work.\\n'
     """
-    for trigger in triggers.values():
-        content = re.sub(trigger[0], trigger[1], content)
+    for pattern, replacement in triggers.values():
+        if replacement != "":
+            content = re.sub(pattern, replacement, content)
+        else:
+            while True:
+                match = re.search(pattern, content)
+                if not match or match.start() == match.end():
+                    break
+                start = match.start()
+                end = match.end()
+                match_text = match.group(0)
+                if match_text and match_text[0].isupper() and end < len(content):
+                    content = content[:end] + content[end].upper() + content[end + 1 :]
+                content = content[:start] + content[end:]
     return content
 
 

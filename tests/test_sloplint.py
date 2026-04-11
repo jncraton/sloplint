@@ -33,7 +33,7 @@ def test_fix():
         "First line, with em dash\n"
         "Second line bold\n"
         "Third line \n"
-        "this is true.\n"
+        "This is true.\n"
         "It is work.\n"
     )
 
