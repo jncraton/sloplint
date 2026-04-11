@@ -30,7 +30,9 @@ for trigger in triggers:
     rule, replacement = triggers[trigger]
 
     if not "\\" in rule and not "?" in rule:
-        triggers[trigger] = (r"\b" + re.escape(rule) + " ?", replacement)
+        rule = re.escape(rule)
+        rule = rule.replace("\\.\\.\\.", "(.*?)")
+        triggers[trigger] = (r"\b" + rule + " ?", replacement)
 
 
 def fix(content: str) -> str:
