@@ -19,6 +19,7 @@ def test_issue_count(tmp_path, capsys):
 
     assert exit_code == 1
     assert f"samples/chatgpt-20260411-black-holes.md:1: " in captured.out
+    assert len(captured.out.splitlines()) == 22
 
 
 def test_main_fix_rewrites_file(tmp_path, capsys):
