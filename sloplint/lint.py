@@ -1,6 +1,11 @@
 import re
 
 triggers = {
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Curly_quotation_marks_and_apostrophes
+    "“": '"',
+    "”": '"',
+    "‘": "'",
+    "’": "'",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#High_density_of_%22AI_vocabulary%22_words
     "Additionally,": "",
     "aligns? with": None,
@@ -57,11 +62,6 @@ triggers = {
         r"]",
         "",
     ),
-    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Curly_quotation_marks_and_apostrophes
-    "“": '"',
-    "”": '"',
-    "‘": "'",
-    "’": "'",
 }
 
 for trigger in triggers:
