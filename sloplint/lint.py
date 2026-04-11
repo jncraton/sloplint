@@ -26,12 +26,14 @@ triggers = {
     "word:meticulous": (r"\bmeticulous(?:ly)? ", r""),
 }
 
-
 def fix_markdown_content(content: str) -> str:
     """Return content with detectable markdown issues fixed.
 
     >>> fix_markdown_content('This **bold** text\\n')
     'This bold text\\n'
+
+    >>> fix_markdown_content('This **bold** text in **bold**\\n')
+    'This bold text in bold\\n'
 
     >>> fix_markdown_content('Pause — here\\n')
     'Pause, here\\n'
@@ -55,6 +57,9 @@ def find_markdown_issues(content: str) -> list[str]:
 
     >>> find_markdown_issues('This **bold** text\\n')
     ['1: style:bold']
+
+    >>> fix_markdown_content('This **bold** text in **bold**\\n')
+    ['1: style:bold', '1: style:bold']
 
     >>> find_markdown_issues('Pause — here\\n')
     ['1: char:em-dash']
