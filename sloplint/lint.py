@@ -3,7 +3,7 @@ import re
 triggers = {
     r"\*\*(.*?)\*\*": r"\1",
     r" ?— ?": r", ",
-    r"Additionally, ": "",
+    "Additionally,": "",
     r"\bmeticulous(?:ly)? ": "",
     "char:emoji": (
         r"["
@@ -26,6 +26,9 @@ triggers = {
 for trigger in triggers:
     if not isinstance(triggers[trigger], tuple):
         triggers[trigger] = (trigger, triggers[trigger])
+
+    if not "\\" in triggers[trigger][0]:
+        triggers[trigger] = (r"\b" + triggers[trigger][0] + " ?", triggers[trigger][1])
 
 
 def fix(content: str) -> str:
@@ -82,7 +85,7 @@ def lint(content: str) -> list[str]:
     ['1: char:emoji']
 
     >>> lint('Additionally, note this.\\n')
-    ['1: Additionally, ']
+    ['1: Additionally,']
 
     >>> lint('It is meticulous work.\\n')
     ['1: \\\\bmeticulous(?:ly)? ']
