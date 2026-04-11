@@ -1,10 +1,13 @@
 import re
 
 triggers = {
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_boldface
     "**...**": r"\1",
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Overuse_of_em_dashes
     r" ?— ?": r", ",
     "meticulous": "",
     "meticulously": "",
+    # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Emoji
     "char:emoji": (
         r"["
         r"\U0001F300-\U0001F5FF"
