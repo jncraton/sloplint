@@ -174,7 +174,7 @@ def lint(content: str) -> list[str]:
     ["1: isn't only"]
 
     >>> lint("It isn’t only good, but great")
-    ['1: ’']
+    ['1: ’', "1: isn't only"]
 
     >>> lint('“Hello, world”')
     ['1: “', '1: ”']
@@ -186,7 +186,12 @@ def lint(content: str) -> list[str]:
 
     for line_number, line in enumerate(content.splitlines(), start=1):
         for name, trigger in triggers.items():
-            for match in re.findall(trigger[0], line):
+            pattern, replacement = trigger
+            for match in re.findall(pattern, line):
                 issues.append(f"{line_number}: {name}")
+            if replacement != "":
+                if replacement != None:
+                    line = re.sub(pattern, replacement, line)
+
 
     return issues
