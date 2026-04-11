@@ -1,7 +1,7 @@
 import re
 
 triggers = {
-    r"\*\*(.*?)\*\*": r"\1",
+    "**...**": r"\1",
     r" ?— ?": r", ",
     "Additionally,": "",
     r"\bmeticulous(?:ly)? ": "",
@@ -34,7 +34,8 @@ for trigger in triggers:
         rule = rule.replace("\\.\\.\\.", "(.*?)")
         if rule[0].isalnum():
             rule = r"\b" + rule
-        rule = rule + r" ?"
+        if rule[1].isalnum():
+            rule = rule + r" ?"
 
         triggers[trigger] = (rule, replacement)
 
@@ -81,7 +82,7 @@ def lint(content: str) -> list[str]:
     """Return a list of markdown issues detected in the content.
 
     >>> lint('This **bold** text\\n')
-    ['1: \\\\*\\\\*(.*?)\\\\*\\\\*']
+    ['1: **...**']
 
     >>> len(lint('This **bold** text in **bold**\\n'))
     2
