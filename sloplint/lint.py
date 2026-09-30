@@ -55,6 +55,10 @@ triggers = {
     r" ?— ?": r", ",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Inline-header_vertical_lists
     "header list": (r"^([ \t]*[*+-] |\d+[.)] )(.*?):", r"\1\2"),
+    "triplets": (
+        r"\b\w+(?:\s+\w+)*,\s+\w+(?:\s+\w+)*,\s+(?:(?:and|or)\s+)?\w+(?:\s+\w+)*",
+        None,
+    ),
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Emoji
     "emoji": (
         r"["
@@ -135,6 +139,9 @@ def fix(content: str) -> str:
 
     >>> fix('\\n- **Item**: a\\n- **Another**: b')
     '\\n- Item: a\\n- Another: b'
+
+    >>> fix('Efficient, scalable, and reliable.')
+    'Efficient, scalable, and reliable.'
     """
     for pattern, replacement in triggers.values():
         if replacement != "":
@@ -195,6 +202,15 @@ def lint(content: str) -> list[str]:
 
     >>> lint('\\n- **Item**: a\\n- **Another**: b')
     ['2: **...**', '2: header list', '3: **...**', '3: header list']
+
+    >>> lint('Efficient, scalable, and reliable.')
+    ['1: triplets']
+
+    >>> lint('Plan, execute, and optimize.')
+    ['1: triplets']
+
+    >>> lint('More productive, more focused, more fulfilled.')
+    ['1: triplets']
     """
     issues: list[str] = []
 
