@@ -175,6 +175,9 @@ def lint(content: str) -> list[str]:
     >>> len(lint('This **bold** text in **bold**'))
     2
 
+    >>> lint('A fine sentence.')
+    []
+
     >>> lint('Pause — here')
     ['1:  ?— ?']
 
