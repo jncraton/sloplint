@@ -55,6 +55,7 @@ triggers = {
     r" ?— ?": r", ",
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Inline-header_vertical_lists
     "header list": (r"^([ \t]*[*+-] |\d+[.)] )(.*?):", r"\1\2"),
+    # Triplet framing https://www.forbes.com/sites/charliefink/2025/06/12/the-seven-tells-of-ai-writing/
     "triplets": (
         r"\b\w+(?:\s+\w+)*,\s+\w+(?:\s+\w+)*,\s+(?:(?:and|or)\s+)?\w+(?:\s+\w+)*",
         None,
