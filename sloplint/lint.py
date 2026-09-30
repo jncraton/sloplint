@@ -219,6 +219,9 @@ def lint(content: str) -> list[str]:
 
     >>> lint('More productive, more focused, more fulfilled.')
     ['1: triplets']
+
+    >>> lint('One, two, three, and four.')
+    []
     """
     issues: list[str] = []
 
