@@ -61,7 +61,7 @@ triggers = {
     "header list": (r"^([ \t]*[*+-] |\d+[.)] )(.*?):", r"\1\2"),
     # Triplet framing https://www.forbes.com/sites/charliefink/2025/06/12/the-seven-tells-of-ai-writing/
     "triplets": (
-        r"\b\w+(?:\s+\w+)*,\s+\w+(?:\s+\w+)*,\s+(?:(?:and|or)\s+)?\w+(?:\s+\w+)*",
+        r"(\b[A-Z][^,\.\!\?]+),([^,\.\!\?]+)((, and|, or| and| or|, )[^,\.\!\?]+[\.\!\?])",
         None,
     ),
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Emoji
@@ -221,6 +221,9 @@ def lint(content: str) -> list[str]:
     ['1: triplets']
 
     >>> lint('One, two, three, and four.')
+    []
+
+    >>> lint('One, and three. Four, five.')
     []
     """
     issues: list[str] = []
