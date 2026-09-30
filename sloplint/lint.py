@@ -34,6 +34,10 @@ triggers = {
     "underscore": None,
     "valuable": None,
     "vibrant": None,
+    # unsourced
+    "revealing": None,
+    "striking": None,
+    "countless": None,
     # https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing#Avoidance_of_basic_copulatives_(%22is%22/%22are%22_phrases)
     "serves as": "is",
     "serve as": "are",
